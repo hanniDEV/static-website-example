@@ -7,7 +7,10 @@ pipeline {
         PRODUCTION = "yamen-ajc-prod-env"
         USERNAME = "yamen78"
         CONTAINER_NAME = "webapp"
-        EC2_PRODUCTION_HOST="54.89.28.248"
+        EC2_PRODUCTION_HOST="34.207.159.56"
+	EC2_STAGING_HOST="3.87.0.130"
+	
+	
     }
 
     agent none
@@ -83,7 +86,7 @@ pipeline {
                         }
                         
                         sh'''
-                            ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_PRODUCTION_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:80 $USERNAME/$IMAGE_NAME:$IMAGE_TAG
+                            ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_STAGING_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:80 $USERNAME/$IMAGE_NAME:$IMAGE_TAG
                         '''
                     }
                 }
