@@ -3,12 +3,11 @@ pipeline {
     environment {
         IMAGE_NAME = "webapp"
         IMAGE_TAG = "ajc-1.0"
-        STAGING = "yamen-ajc-staging-env"
         PRODUCTION = "yamen-ajc-prod-env"
         USERNAME = "yamen78"
         CONTAINER_NAME = "webapp"
         EC2_PRODUCTION_HOST="34.207.159.56"
-	EC2_STAGING_HOST="3.87.0.130"
+	
 	
 	
     }
@@ -45,7 +44,7 @@ pipeline {
            steps {
                script{
                    sh '''
-                       curl http://localhost:5000 | grep -iq "dimension"
+                       curl http://localhost:5000 | grep -iq "Dimension Yamen"
                    '''
                }
            }
@@ -71,28 +70,7 @@ pipeline {
 
       
 
-        
-         stage('Deploy app on EC2-cloud Staging') {
-        agent any
-        when{
-            expression{ GIT_BRANCH == 'origin/master'}
-        }
-        steps{
-            withCredentials([sshUserPrivateKey(credentialsId: "ec2_prod_private_key", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    script{ 
-                         timeout(time: 15, unit: "MINUTES") {
-                            input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
-                        }
-                        
-                        sh'''
-                            ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${EC2_STAGING_HOST} docker run --name $CONTAINER_NAME -d -e PORT=5000 -p 5000:5000 $USERNAME/$IMAGE_NAME:$IMAGE_TAG
-                        '''
-                    }
-                }
-            }
-        }
-    }
+    
         
 
 	
