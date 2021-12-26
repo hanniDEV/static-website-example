@@ -6,7 +6,7 @@ pipeline {
         PRODUCTION = "yamen-ajc-prod-env"
         USERNAME = "yamen78"
         CONTAINER_NAME = "webapp"
-        EC2_PRODUCTION_HOST="34.207.159.56"
+        EC2_PRODUCTION_HOST="44.201.156.165"
 	
 	
 	
