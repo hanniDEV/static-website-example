@@ -57,7 +57,7 @@ stage ('Test application') {
            steps {
                script{
                    sh '''
-                       curl http://localhost:5000 | grep -iq "Dimension Yamen"
+                       curl http://localhost:5000 | grep -iq "dimension"
                    '''
                }
            }
