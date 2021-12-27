@@ -52,7 +52,16 @@ pipeline {
 
       
 
-
+stage ('Test application') {
+           agent any
+           steps {
+               script{
+                   sh '''
+                       curl http://localhost:5000 | grep -iq "Dimension Yamen"
+                   '''
+               }
+           }
+       }
 
 
 
