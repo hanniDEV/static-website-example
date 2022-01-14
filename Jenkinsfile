@@ -63,7 +63,18 @@ stage ('Test application') {
            }
        }
 
-	
+	    
+stage('Test') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: '<Snyk_tool>',
+          snykTokenId: '<snyk-Token>',
+          // place other parameters here
+        )
+      }
+    }	
+	    
 	    
       stage ('clean env and save artifact') {
            agent any
